@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Dinámica con Tailwind y JavaScript</title>
+    <!-- Incluimos Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Lista Dinámica</h1>
+
+        <!-- Casilla de texto y botón -->
+        <div class="flex space-x-4 mb-6">
+            <input 
+                type="text" 
+                id="itemInput" 
+                placeholder="Escribe algo..." 
+                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+            <button 
+                id="addItemButton" 
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+                Agregar
+            </button>
+        </div>
+
+        <!-- Lista donde se mostrarán los elementos -->
+        <ul id="itemList" class="space-y-2">
+            <!-- Los elementos se agregarán aquí dinámicamente -->
+        </ul>
+    </div>
+
+    <!-- Script para la funcionalidad -->
+    <script>
+        // Obtenemos referencias a los elementos del DOM
+        const itemInput = document.getElementById('itemInput');
+        const addItemButton = document.getElementById('addItemButton');
+        const itemList = document.getElementById('itemList');
+
+        // Agregamos un evento al botón para manejar el clic
+        addItemButton.addEventListener('click', () => {
+            const inputValue = itemInput.value.trim();
+
+            // Verificamos que el input no esté vacío
+            if (inputValue !== '') {
+                // Creamos un nuevo elemento de lista
+                const listItem = document.createElement('li');
+                listItem.textContent = inputValue;
+                listItem.classList.add('px-4', 'py-2', 'bg-gray-200', 'rounded-lg', 'text-gray-700');
+
+                // Agregamos el elemento a la lista
+                itemList.appendChild(listItem);
+
+                // Limpiamos el input
+                itemInput.value = '';
+            } else {
+                alert('Por favor, escribe algo en la casilla.');
+            }
+        });
+
+        // Opcional: Permitir agregar elementos presionando "Enter"
+        itemInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                addItemButton.click();
+            }
+        });
+    </script>
+
+</body>
+</html>
